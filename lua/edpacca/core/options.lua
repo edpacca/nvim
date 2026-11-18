@@ -1,0 +1,58 @@
+vim.cmd("let g:netrw_liststyle = 3")
+
+local opt = vim.opt
+
+-- already in .vimrc
+opt.relativenumber = true
+opt.number = true
+opt.tabstop = 2
+opt.shiftwidth = 2
+opt.wrap = false
+opt.ignorecase = true
+opt.cursorline = true
+opt.termguicolors = true
+opt.clipboard:append("unnamedplus")
+opt.diffopt:append("algorithm:histogram")
+
+-- tabs & indentation
+opt.expandtab = true
+opt.autoindent = true
+
+-- search settings
+opt.smartcase = true
+
+-- colors
+opt.background = "dark"
+opt.signcolumn = "yes:2"
+
+-- backspace
+opt.backspace = "indent,eol,start"
+
+-- split windows
+opt.splitright = true
+opt.splitbelow = true
+
+-- title
+opt.title = true
+opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+
+-- go templates: `helm` filetype = gotmpl + yaml injected into the text
+vim.filetype.add({
+	extension = { gotmpl = "gotmpl" },
+	pattern = {
+		[".*%.ya?ml%.gotmpl"] = "helm",
+	},
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+vim.api.nvim_create_autocmd("VimResized", {
+	pattern = "*",
+	callback = function()
+		vim.cmd("tabdo wincmd =")
+	end,
+})
