@@ -8,9 +8,12 @@ return {
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
 
+		local width_standard = 45
+		local width_wide = 90
+
 		nvimtree.setup({
 			view = {
-				width = 45,
+				width = width_standard,
 				relativenumber = true,
 			},
 			sort = {
@@ -61,5 +64,19 @@ return {
 			nvimtreeapi.tree.change_root_to_node,
 			{ desc = "Set selected node as root folder" }
 		)
+
+		-- toggle tree width between narrow and wide
+		local function toggle_tree_width()
+			local winid = nvimtreeapi.tree.winid()
+			if not winid then
+				return
+			end
+
+			local width = vim.api.nvim_win_get_width(winid)
+			local new_width = (width == width_standard) and width_wide or width_standard
+			nvimtreeapi.tree.resize({ absolute = new_width })
+		end
+
+		keymap.set("n", "<leader>ew", toggle_tree_width, { desc = "Toggle file explorer width" })
 	end,
 }
