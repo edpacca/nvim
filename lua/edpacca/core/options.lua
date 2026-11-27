@@ -59,6 +59,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("VimResized", {
 	pattern = "*",
 	callback = function()
+		-- tabdo leaves you on the last tab, so remember and restore the current one
+		local current_tab = vim.api.nvim_get_current_tabpage()
 		vim.cmd("tabdo wincmd =")
+		vim.api.nvim_set_current_tabpage(current_tab)
 	end,
 })

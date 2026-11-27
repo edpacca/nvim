@@ -16,6 +16,11 @@ return {
 			"<cmd>DiffviewOpen origin/main...HEAD --imply-local<cr>",
 			desc = "Diff view against main",
 		},
+		{
+			"<leader>gl",
+			"<cmd>DiffviewOpen<cr>",
+			desc = "Diff view against last commit",
+		},
 	},
 	config = function()
 		local diffview = require("diffview")

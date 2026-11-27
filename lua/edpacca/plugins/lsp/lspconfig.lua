@@ -56,6 +56,12 @@ return {
 					{ buffer = ev.buf, silent = true, desc = "Show LSP type definitions" }
 				)
 				vim.keymap.set(
+					"n",
+					"T",
+					vim.lsp.buf.hover,
+					{ buffer = ev.buf, silent = true, desc = "Show hover info (type/docs)" }
+				)
+				vim.keymap.set(
 					{ "n", "v" },
 					"<leader>;",
 					vim.lsp.buf.code_action,
