@@ -30,8 +30,15 @@ return {
 			group = vim.api.nvim_create_augroup("UserTreesitter", {}),
 			callback = function(ev)
 				-- no-op for filetypes without an installed parser
-				pcall(vim.treesitter.start, ev.buf)
+				if pcall(vim.treesitter.start, ev.buf) then
+					vim.wo.foldmethod = "expr"
+					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				end
 			end,
 		})
+
+		vim.keymap.set("n", "<leader>zf", function()
+			require("edpacca.lib.fold").fold_definitions()
+		end, { desc = "Fold top-level functions/classes" })
 	end,
 }

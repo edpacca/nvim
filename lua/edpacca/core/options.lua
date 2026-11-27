@@ -32,6 +32,12 @@ opt.backspace = "indent,eol,start"
 opt.splitright = true
 opt.splitbelow = true
 
+-- folding (foldmethod/foldexpr set per-buffer when treesitter starts)
+opt.foldlevel = 99 -- open everything by default
+opt.foldlevelstart = 99
+opt.foldtext = "" -- show the fold's first line with syntax highlighting
+opt.fillchars:append({ fold = " " })
+
 -- title
 opt.title = true
 opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
